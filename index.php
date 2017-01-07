@@ -115,7 +115,6 @@ function goRight (el) {
     x = parseInt(ml);
   }
   x2 = x-250;
-  // TODO: Check we don't fall off the end!
   if (x2 < <?php echo 0 - count($even_addresses) * 250 ?>) {
     x2 = <?php echo 0 - count($even_addresses) * 250 ?>;
   }
@@ -146,7 +145,7 @@ function goLeft (el) {
 <button class="nav" onClick="goLeft(document.getElementById('north-side'));" >&laquo; West</button>
 <button class="nav" onClick="goRight(document.getElementById('north-side'));" >East &raquo;</button>
 </p>
-<ul class="building-list">
+<ul id="north-side" class="building-list">
 <?php
 foreach($odd_addresses as $a){
   if(isset($addr_hash['odds'][$a])) {
