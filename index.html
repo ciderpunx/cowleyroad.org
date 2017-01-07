@@ -52,7 +52,6 @@ function goRight (el) {
     x = parseInt(ml);
   }
   x2 = x-250;
-  // TODO: Check we don't fall off the end!
   if (x2 < -2000) {
     x2 = -2000;
   }
@@ -83,7 +82,7 @@ function goLeft (el) {
 <button class="nav" onClick="goLeft(document.getElementById('north-side'));" >&laquo; West</button>
 <button class="nav" onClick="goRight(document.getElementById('north-side'));" >East &raquo;</button>
 </p>
-<ul class="building-list">
+<ul id="north-side" class="building-list">
 	<li><a href="/wiki/index.php?title=51a"><img data-src="./images/51a-2017-01-06.JPG" alt="51a Cowley Road, Oxford" /></a></li>
 	<li><a href="/wiki/index.php?title=53"><img data-src="./images/53-2017-01-01.jpg" alt="53 Cowley Road, Oxford" /></a></li>
 </ul>
