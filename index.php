@@ -1,12 +1,12 @@
 <html>
 <?php
-$dir = "./images"; // change to dir where images live
+$dir = "wiki/images"; // change to dir where images live
 
 // This a list of the even/South addresses in the order that they will appear on screen
-$even_addresses = ["76","66","46","40","38","36","34","south_Cape"];
+$even_addresses = range(300,2,2);
 
 // This a list of the odd/North addresses in the order that they will appear on screen
-$odd_addresses = ["51a", "53"];
+$odd_addresses = range (1,199,2);
 
 $addrs = getAllImageFilenames();
 $addr_hash = getLatestImages($addrs);
