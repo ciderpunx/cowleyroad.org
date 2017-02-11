@@ -65,9 +65,10 @@ function getAllImageFilenames() {
 <head>
 <title>My cowley rd</title>
 <style>
-.building-list {height:200px; list-style-type:none; white-space:nowrap; display:inline}
-.building-list li {width:20%;display:inline-block}
+.building-list {height:200px; list-style-type:none; white-space:nowrap; display:inline; margin-left:0}
+.building-list li {width:250px;margin-right:10px;display:inline-block}
 .building-list img {width:100%;vertical-align:middle}
+.scroll-nav {text-align:centre; width:250px; display:block; left:45%; height:1.5em; margin-bottom: 1em}
 </style>
 <script>
 
@@ -107,33 +108,54 @@ function isElementInViewport (el) {
         rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
     );
 }
-
 function goRight (el) {
   ml = el.style.marginLeft;
-  x="-250";
+  x="0";
   if(ml!="") {
     x = parseInt(ml);
   }
-  x2 = x-250;
-  if (x2 < <?php echo 0 - count($even_addresses) * 250 ?>) {
-    x2 = <?php echo 0 - count($even_addresses) * 250 ?>;
-  }
-  console.log("New X is: " + x2 + " (old was " + x + ")");
-  el.style.marginLeft = x2 + "px";
+  // console.log("goRight called with id: " + el.id + " x is " + x + ", ml is " + ml);
+  el.style.marginLeft = calcRightOffset(x, el.id) + "px";
   lazyLoadImages();
 }
+function goTotallyRight (el) {
+  //console.log(maxRightOffset(el.id) );
+  el.style.marginLeft = maxRightOffset(el.id) + "px";
+  lazyLoadImages();
+}
+function  calcRightOffset (x,id) {
+  x2 = x-260;
+  mro = maxRightOffset(id);
+  if (x2 < mro) {
+      x2 = mro;
+  }
+  //console.log("New X for " + id + " is: " + x2 + " (old was " + x + ") mro is: " + mro);
+  return x2;
+}
+function  maxRightOffset (id) {
+  if (id == 'south-side') {
+      return <?php echo 0 - count($even_addresses) * 260 ?>;
+  }
+  else { // id == north-side or something else!
+      return <?php echo 0 - count($odd_addresses) * 260 ?>;
+  }
+}
+
 function goLeft (el) {
   ml = el.style.marginLeft;
   x="0";
   if(ml!="") {
     x = parseInt(ml);
   }
-  x2 = x+250;
+  x2 = x+260;
   if(x2>0) {
     x2=0;
   }
-  console.log("New X is: " + x2 + " (old was " + x + ")");
   el.style.marginLeft = x2 + "px";
+  lazyLoadImages();
+}
+function goTotallyLeft (el) {
+  el.style.marginLeft = "0px";
   lazyLoadImages();
 }
 </script>
@@ -141,10 +163,12 @@ function goLeft (el) {
 </head>
 <body id="main-wrapper">
 <h2>North Side (Odd)</h2>
-<p style="text-align:center">
-<button class="nav" onClick="goLeft(document.getElementById('north-side'));" >&laquo; West</button>
-<button class="nav" onClick="goRight(document.getElementById('north-side'));" >East &raquo;</button>
-</p>
+<nav class="scroll-nav">
+  <button class="nav" onClick="goTotallyLeft(document.getElementById('north-side'));" >&larrb;</button>
+  <button class="nav" onClick="goLeft(document.getElementById('north-side'));" >&laquo; West</button>
+  <button class="nav" onClick="goRight(document.getElementById('north-side'));" >East &raquo;</button>
+  <button class="nav" onClick="goTotallyRight(document.getElementById('north-side'));" >&rarrb;</button>
+</nav>
 <ul id="north-side" class="building-list">
 <?php
 foreach($odd_addresses as $a){
@@ -158,10 +182,12 @@ foreach($odd_addresses as $a){
 ?>
 </ul>
 <h2>South Side (Even)</h2>
-<p style="text-align:center">
-<button class="nav" onClick="goLeft(document.getElementById('south-side'));" >&laquo; East</button>
-<button class="nav" onClick="goRight(document.getElementById('south-side'));" >West &raquo;</button>
-</p>
+<nav class="scroll-nav">
+  <button class="nav" onClick="goTotallyLeft(document.getElementById('south-side'));" >&larrb;</button>
+  <button class="nav" onClick="goLeft(document.getElementById('south-side'));" >&laquo; East</button>
+  <button class="nav" onClick="goRight(document.getElementById('south-side'));" >West &raquo;</button>
+  <button class="nav" onClick="goTotallyRight(document.getElementById('south-side'));" >&rarrb;</button>
+</nav>
 <ul id="south-side" class="building-list">
 <?php
 foreach($even_addresses as $a){
