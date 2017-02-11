@@ -68,7 +68,7 @@ function getAllImageFilenames() {
 .building-list {height:200px; list-style-type:none; white-space:nowrap; display:inline; margin-left:0}
 .building-list li {width:250px;margin-right:10px;display:inline-block}
 .building-list img {width:100%;vertical-align:middle}
-.scroll-nav {text-align:centre; width:250px; display:block; left:45%; height:1.5em; margin-bottom: 1em}
+.scroll-nav {text-align:center; height:1.5em; margin-bottom: 1em}
 </style>
 <script>
 
@@ -132,6 +132,9 @@ function  calcRightOffset (x,id) {
   //console.log("New X for " + id + " is: " + x2 + " (old was " + x + ") mro is: " + mro);
   return x2;
 }
+function goHalf (el) {
+  el.style.marginLeft = maxRightOffset(el.id)/2;
+}
 function  maxRightOffset (id) {
   if (id == 'south-side') {
       return <?php echo 0 - count($even_addresses) * 260 ?>;
@@ -166,6 +169,7 @@ function goTotallyLeft (el) {
 <nav class="scroll-nav">
   <button class="nav" onClick="goTotallyLeft(document.getElementById('north-side'));" >&larrb;</button>
   <button class="nav" onClick="goLeft(document.getElementById('north-side'));" >&laquo; West</button>
+  <button class="nav" onClick="goHalf(document.getElementById('north-side'));" >TESCO</button>
   <button class="nav" onClick="goRight(document.getElementById('north-side'));" >East &raquo;</button>
   <button class="nav" onClick="goTotallyRight(document.getElementById('north-side'));" >&rarrb;</button>
 </nav>
@@ -185,6 +189,7 @@ foreach($odd_addresses as $a){
 <nav class="scroll-nav">
   <button class="nav" onClick="goTotallyLeft(document.getElementById('south-side'));" >&larrb;</button>
   <button class="nav" onClick="goLeft(document.getElementById('south-side'));" >&laquo; East</button>
+  <button class="nav" onClick="goHalf(document.getElementById('south-side'));" >Continental</button>
   <button class="nav" onClick="goRight(document.getElementById('south-side'));" >West &raquo;</button>
   <button class="nav" onClick="goTotallyRight(document.getElementById('south-side'));" >&rarrb;</button>
 </nav>
