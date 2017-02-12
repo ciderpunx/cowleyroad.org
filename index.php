@@ -67,12 +67,19 @@ function getAllImageFilenames() {
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
 <style>
 html,body {font-family: Montseratt, sans-serif;}
-.building-list {height:200px; list-style-type:none; white-space:nowrap; display:inline; margin-left:0}
+.building-list {height:200px; list-style-type:none; white-space:nowrap; display:inline; margin-left:0; }
 .building-list li {width:250px;margin-right:10px;display:inline-block}
 .building-list img {width:100%;vertical-align:middle}
 .scroll-nav {width:100%; text-align:center; height:1.5em; margin-bottom: 1em}
 #north-slider,#south-slider {width:50%}
+#front-h1 {text-align:center}
+#front-article {width:100%; overflow-x:hidden; overflow-y:hidden}
 </style>
+<!--[if (lte IE 10)|!(IE)]><!-->
+<!--style>
+#front-article {overflow-x:scroll}
+</style-->
+<![endif]-->
 <script>
 
 // Lazy Loading code from: http://developer.telerik.com/featured/lazy-loading-images-on-the-web/
@@ -115,53 +122,60 @@ function isElementInViewport (el) {
 
 </head>
 <body id="main-wrapper">
-<h2>North Side (Odd)</h2>
-<nav class="scroll-nav">
-  West
-  <input id="north-slider"
-         type="range"
-         value="0"
-         min="0"
-         max="<?php echo count($odd_addresses) * 260 ?>"
-         step="260"
-         onChange="document.getElementById('north-side').style.marginLeft = 0 - document.getElementById('north-slider').value;" />
-  East
-</nav>
-<ul id="north-side" class="building-list">
-<?php
-foreach($odd_addresses as $a){
-  if(isset($addr_hash['odds'][$a])) {
-    print "\t<li><a href=\"/wiki/index.php?title=$a\"><img data-src=\"".$addr_hash['odds'][$a]."\" alt=\"".$a." Cowley Road, Oxford\" /></a></li>\n";
-  }
-  else {
-    print "\t<li><a href=\"/wiki/$a/index.php?title=$a\"><img data-src=\"PATH_TO_DEFAULT_IMAGE.JPG\" alt=\"".$a." Cowley Road, Oxford\" /></a></li>\n";
-  }
-}
-?>
-</ul>
-<h2>South Side (Even)</h2>
-<nav class="scroll-nav">
-  East
-  <input id="south-slider"
-         type="range"
-         value="0"
-         min="0"
-         max="<?php echo count($even_addresses) * 260 ?>"
-         step="260" 
-         onChange="document.getElementById('south-side').style.marginLeft = 0 - document.getElementById('south-slider').value;" />
-  West
-</nav>
-<ul id="south-side" class="building-list">
-<?php
-foreach($even_addresses as $a){
-  if(isset($addr_hash['evens'][$a])) {
-    print "\t<li><a href=\"/wiki/index.php?title=$a\"><img data-src=\"".$addr_hash['evens'][$a]."\" alt=\"".$a." Cowley Road, Oxford\"/></a></li>\n";
-  }
-  else {
-    print "\t<li><a href=\"/wiki/index.php?title=$a\"><img data-src=\"PATH_TO_DEFAULT_IMAGE.JPG\" alt=\"".$a." Cowley Road, Oxford\" /></a></li>\n";
-  }
-}
-?>
-</ul>
 
+<header>
+<h1 id="front-h1">cowleyroad.org</h1>
+</header>
+
+<article id="front-article">
+  <p>Cowley Road site with things about Cowley Road and shit.</p>
+  <h2>North Side (Odd)</h2>
+  <nav class="scroll-nav">
+    West
+    <input id="north-slider"
+           type="range"
+           value="0"
+           min="0"
+           max="<?php echo count($odd_addresses) * 260 ?>"
+           step="260"
+           onChange="document.getElementById('north-side').style.marginLeft = 0 - document.getElementById('north-slider').value;" />
+    East
+  </nav>
+  <ul id="north-side" class="building-list">
+  <?php
+  foreach($odd_addresses as $a){
+    if(isset($addr_hash['odds'][$a])) {
+      print "\t<li><a href=\"/wiki/index.php?title=$a\"><img data-src=\"".$addr_hash['odds'][$a]."\" alt=\"".$a." Cowley Road, Oxford\" /></a></li>\n";
+    }
+    else {
+      print "\t<li><a href=\"/wiki/$a/index.php?title=$a\"><img data-src=\"PATH_TO_DEFAULT_IMAGE.JPG\" alt=\"".$a." Cowley Road, Oxford\" /></a></li>\n";
+    }
+  }
+  ?>
+  </ul>
+  <h2>South Side (Even)</h2>
+  <nav class="scroll-nav">
+    East
+    <input id="south-slider"
+           type="range"
+           value="0"
+           min="0"
+           max="<?php echo count($even_addresses) * 260 ?>"
+           step="260" 
+           onChange="document.getElementById('south-side').style.marginLeft = 0 - document.getElementById('south-slider').value;" />
+    West
+  </nav>
+  <ul id="south-side" class="building-list">
+  <?php
+  foreach($even_addresses as $a){
+    if(isset($addr_hash['evens'][$a])) {
+      print "\t<li><a href=\"/wiki/index.php?title=$a\"><img data-src=\"".$addr_hash['evens'][$a]."\" alt=\"".$a." Cowley Road, Oxford\"/></a></li>\n";
+    }
+    else {
+      print "\t<li><a href=\"/wiki/index.php?title=$a\"><img data-src=\"PATH_TO_DEFAULT_IMAGE.JPG\" alt=\"".$a." Cowley Road, Oxford\" /></a></li>\n";
+    }
+  }
+  ?>
+  </ul>
+</article>
 </body>
