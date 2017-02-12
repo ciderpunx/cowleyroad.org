@@ -64,7 +64,9 @@ function getAllImageFilenames() {
 ?>
 <head>
 <title>My cowley rd</title>
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
 <style>
+html,body {font-family: Montseratt, sans-serif;}
 .building-list {height:200px; list-style-type:none; white-space:nowrap; display:inline; margin-left:0}
 .building-list li {width:250px;margin-right:10px;display:inline-block}
 .building-list img {width:100%;vertical-align:middle}
