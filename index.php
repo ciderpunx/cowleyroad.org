@@ -68,7 +68,8 @@ function getAllImageFilenames() {
 .building-list {height:200px; list-style-type:none; white-space:nowrap; display:inline; margin-left:0}
 .building-list li {width:250px;margin-right:10px;display:inline-block}
 .building-list img {width:100%;vertical-align:middle}
-.scroll-nav {text-align:center; height:1.5em; margin-bottom: 1em}
+.scroll-nav {width:100%; text-align:center; height:1.5em; margin-bottom: 1em}
+#north-slider,#south-slider {width:50%}
 </style>
 <script>
 
@@ -108,70 +109,21 @@ function isElementInViewport (el) {
         rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
     );
 }
-function goRight (el) {
-  ml = el.style.marginLeft;
-  x="0";
-  if(ml!="") {
-    x = parseInt(ml);
-  }
-  // console.log("goRight called with id: " + el.id + " x is " + x + ", ml is " + ml);
-  el.style.marginLeft = calcRightOffset(x, el.id) + "px";
-  lazyLoadImages();
-}
-function goTotallyRight (el) {
-  //console.log(maxRightOffset(el.id) );
-  el.style.marginLeft = maxRightOffset(el.id) + "px";
-  lazyLoadImages();
-}
-function  calcRightOffset (x,id) {
-  x2 = x-260;
-  mro = maxRightOffset(id);
-  if (x2 < mro) {
-      x2 = mro;
-  }
-  //console.log("New X for " + id + " is: " + x2 + " (old was " + x + ") mro is: " + mro);
-  return x2;
-}
-function goHalf (el) {
-  el.style.marginLeft = maxRightOffset(el.id)/2;
-}
-function  maxRightOffset (id) {
-  if (id == 'south-side') {
-      return <?php echo 0 - count($even_addresses) * 260 ?>;
-  }
-  else { // id == north-side or something else!
-      return <?php echo 0 - count($odd_addresses) * 260 ?>;
-  }
-}
-
-function goLeft (el) {
-  ml = el.style.marginLeft;
-  x="0";
-  if(ml!="") {
-    x = parseInt(ml);
-  }
-  x2 = x+260;
-  if(x2>0) {
-    x2=0;
-  }
-  el.style.marginLeft = x2 + "px";
-  lazyLoadImages();
-}
-function goTotallyLeft (el) {
-  el.style.marginLeft = "0px";
-  lazyLoadImages();
-}
 </script>
 
 </head>
 <body id="main-wrapper">
 <h2>North Side (Odd)</h2>
 <nav class="scroll-nav">
-  <button class="nav" onClick="goTotallyLeft(document.getElementById('north-side'));" >&larrb;</button>
-  <button class="nav" onClick="goLeft(document.getElementById('north-side'));" >&laquo; West</button>
-  <button class="nav" onClick="goHalf(document.getElementById('north-side'));" >TESCO</button>
-  <button class="nav" onClick="goRight(document.getElementById('north-side'));" >East &raquo;</button>
-  <button class="nav" onClick="goTotallyRight(document.getElementById('north-side'));" >&rarrb;</button>
+  West
+  <input id="north-slider"
+         type="range"
+         value="0"
+         min="0"
+         max="<?php echo count($odd_addresses) * 260 ?>"
+         step="260"
+         onChange="document.getElementById('north-side').style.marginLeft = 0 - document.getElementById('north-slider').value;" />
+  East
 </nav>
 <ul id="north-side" class="building-list">
 <?php
@@ -187,11 +139,15 @@ foreach($odd_addresses as $a){
 </ul>
 <h2>South Side (Even)</h2>
 <nav class="scroll-nav">
-  <button class="nav" onClick="goTotallyLeft(document.getElementById('south-side'));" >&larrb;</button>
-  <button class="nav" onClick="goLeft(document.getElementById('south-side'));" >&laquo; East</button>
-  <button class="nav" onClick="goHalf(document.getElementById('south-side'));" >Continental</button>
-  <button class="nav" onClick="goRight(document.getElementById('south-side'));" >West &raquo;</button>
-  <button class="nav" onClick="goTotallyRight(document.getElementById('south-side'));" >&rarrb;</button>
+  East
+  <input id="south-slider"
+         type="range"
+         value="0"
+         min="0"
+         max="<?php echo count($even_addresses) * 260 ?>"
+         step="260" 
+         onChange="document.getElementById('south-side').style.marginLeft = 0 - document.getElementById('south-slider').value;" />
+  West
 </nav>
 <ul id="south-side" class="building-list">
 <?php
