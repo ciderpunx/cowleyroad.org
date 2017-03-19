@@ -67,19 +67,17 @@ function getAllImageFilenames() {
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
 <style>
 html,body {font-family: Montseratt, sans-serif;}
-.building-list {height:200px; list-style-type:none; white-space:nowrap; display:inline; margin-left:0; }
-.building-list li {width:250px;margin-right:10px;display:inline-block}
-.building-list img {width:100%;vertical-align:middle}
+.building-list {height:350px; list-style-type:none; white-space:nowrap; display:inline; margin-left:0; }
+.building-list li {text-align: center;width:300px;margin-right:10px;display:inline-block;overflow:hidden}
+.building-list img {height:350px;object-position:center;object-fit:contain}
 .scroll-nav {width:100%; text-align:center; height:1.5em; margin-bottom: 1em}
 #north-slider,#south-slider {width:50%}
 #front-h1 {text-align:center}
 #front-article {width:100%; overflow-x:hidden; overflow-y:hidden}
-</style>
 <!--[if (lte IE 10)|!(IE)]><!-->
-<!--style>
 #front-article {overflow-x:scroll}
-</style-->
 <![endif]-->
+</style>
 <script>
 
 // Lazy Loading code from: http://developer.telerik.com/featured/lazy-loading-images-on-the-web/
@@ -106,7 +104,6 @@ function lazyLoadImages() {
     window.removeEventListener("scroll", lazyLoadImages);
   }
 }
-
 // Source: http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
 function isElementInViewport (el) {
     var rect = el.getBoundingClientRect();
@@ -136,9 +133,9 @@ function isElementInViewport (el) {
            type="range"
            value="0"
            min="0"
-           max="<?php echo count($odd_addresses) * 260 ?>"
-           step="260"
-           onChange="document.getElementById('north-side').style.marginLeft = 0 - document.getElementById('north-slider').value;" />
+           max="<?php echo count($odd_addresses) * 310 ?>"
+           step="310"
+           onChange="document.getElementById('north-side').style.marginLeft = 0 - document.getElementById('north-slider').value;lazyLoadImages();" />
     East
   </nav>
   <ul id="north-side" class="building-list">
@@ -160,9 +157,9 @@ function isElementInViewport (el) {
            type="range"
            value="0"
            min="0"
-           max="<?php echo count($even_addresses) * 260 ?>"
-           step="260" 
-           onChange="document.getElementById('south-side').style.marginLeft = 0 - document.getElementById('south-slider').value;" />
+           max="<?php echo count($even_addresses) * 310 ?>"
+           step="310" 
+           onChange="document.getElementById('south-side').style.marginLeft = 0 - document.getElementById('south-slider').value;lazyLoadImages();" />
     West
   </nav>
   <ul id="south-side" class="building-list">
