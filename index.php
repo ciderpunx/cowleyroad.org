@@ -66,7 +66,7 @@ function getAllImageFilenames() {
 <title>My cowley rd</title>
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
 <style>
-html,body {font-family: Montserrat, sans-serif;}
+html,body {font-family: Montserrat, sans-serif;text-align:center}
 .building-list {height:350px; list-style-type:none; white-space:nowrap; display:inline; margin-left:0; }
 .building-list li {text-align: center;width:300px;margin-right:10px;display:inline-block;overflow:hidden}
 .building-list img {height:350px;object-position:center;object-fit:contain}
@@ -125,7 +125,7 @@ function isElementInViewport (el) {
 </header>
 
 <article id="front-article">
-  <p>Cowley Road site with things about Cowley Road and shit.</p>
+  <p>The hidden history of Oxford&#8217;s favourite street &mdash; written by you.</p>
   <h2>North Side (Odd)</h2>
   <nav class="scroll-nav">
     West
