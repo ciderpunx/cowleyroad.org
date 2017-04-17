@@ -83,7 +83,7 @@ html,body {font-family: Montserrat, sans-serif;text-align:center;margin:0}
 #logo {width:100%;max-width:600px;margin:auto}
 #front-logobar{width:100%;background-color:#000;color:#eee}
 #front-logobar h1 {margin:0}
-#front-logobar p {padding:0 0 1em 0;margin-top:-2em}
+#front-logobar p {padding:0 0 3em 0;margin-top:-1em}
 #front-article {width:100%; overflow-x:hidden; overflow-y:hidden}
 <!--[if (lte IE 10)|!(IE)]><!-->
 #front-article {overflow-x:scroll}
