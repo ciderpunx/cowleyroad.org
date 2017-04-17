@@ -6,7 +6,17 @@ $dir = "wiki/images"; // change to dir where images live
 $even_addresses = range(300,2,2);
 
 // This a list of the odd/North addresses in the order that they will appear on screen
-$odd_addresses = range (1,199,2);
+// $odd_addresses = range (1,199,2);
+$odd_addresses = [  "1","3","7","13","17","21","23","25","29","31","33"
+                 , "35","37","51","xxnorth_51a","53","xxnorth_53a","55"
+                 , "57","59","65","93","95","99","101","103","105","107"
+                 , "109","xxnorth_EOCC","119","121","125","127","129"
+                 , "131","133","137","141147","151","xxnorth_151a","159"
+                 , "169","171","173","175","179","181","183","185","187"
+                 , "189","191","193","205","207","209","211","213","215"
+                 , "217","221","235","237","249","251","255","263","265"
+                 , "267","xxnorth_bartlemas-Chapel"
+                 ];
 
 $addrs = getAllImageFilenames();
 $addr_hash = getLatestImages($addrs);
@@ -54,11 +64,9 @@ function getLatestImages ($filenames) {
 
   return($hash);
 }
-// TODO: this should actually retrieve the images from "somewhere"
 function getAllImageFilenames() {
   global $dir;
   return scandir($dir);
-  // return ["78a-2017.jpeg","78a-2017-01.jpg", "78a-2017-04-11.jpg", "78a.png", "23-2016-12.png"];
 }
 
 ?>
