@@ -11,7 +11,7 @@ $odd_addresses = [  "1","3","7","13","17","21","23","25","29","31","33"
                  , "35","37","51","xxnorth_51a","53","xxnorth_53a","55"
                  , "57","59","65","93","95","99","101","103","105","107"
                  , "109","xxnorth_EOCC","119","121","125","127","129"
-                 , "131","133","137","141147","151","xxnorth_151a","159"
+                 , "131","133","137","141","147","151","xxnorth_151a","159"
                  , "169","171","173","175","179","181","183","185","187"
                  , "189","191","193","205","207","209","211","213","215"
                  , "217","221","235","237","249","251","255","263","265"
@@ -159,7 +159,8 @@ function isElementInViewport (el) {
       print "\t<li><a href=\"/wiki/index.php?title=$a\"><img data-src=\"".$addr_hash['odds'][$a]."\" alt=\"".$a." Cowley Road, Oxford\" /></a></li>\n";
     }
     else {
-      print "\t<li><a href=\"/wiki/$a/index.php?title=$a\"><img data-src=\"PATH_TO_DEFAULT_IMAGE.JPG\" alt=\"".$a." Cowley Road, Oxford\" /></a></li>\n";
+      $a_escaped = preg_replace("/^xxnorth_/","",(preg_replace("/\s+/","+",$a)));
+      print "\t<li><a href=\"/wiki/$a/index.php?title=$a\"><img data-src=\"http://placehold.it/350x350?text=$a_escaped\" alt=\"".$a." Cowley Road, Oxford\" /></a></li>\n";
     }
   }
   ?>
@@ -183,7 +184,8 @@ function isElementInViewport (el) {
       print "\t<li><a href=\"/wiki/index.php?title=$a\"><img data-src=\"".$addr_hash['evens'][$a]."\" alt=\"".$a." Cowley Road, Oxford\"/></a></li>\n";
     }
     else {
-      print "\t<li><a href=\"/wiki/index.php?title=$a\"><img data-src=\"PATH_TO_DEFAULT_IMAGE.JPG\" alt=\"".$a." Cowley Road, Oxford\" /></a></li>\n";
+      $a_escaped = preg_replace("/^xxsouth_/","",preg_replace("/\s+/","+",$a));
+      print "\t<li><a href=\"/wiki/index.php?title=$a\"><img data-src=\"http://placehold.it/350x350?text=$a_escaped\" alt=\"".$a." Cowley Road, Oxford\" /></a></li>\n";
     }
   }
   ?>
