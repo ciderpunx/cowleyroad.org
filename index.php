@@ -133,8 +133,8 @@ function isElementInViewport (el) {
 </header>
 
 <article id="front-article">
-  <p>The hidden history of Oxford&#8217;s favourite street &mdash; written by you.</p>
-  <h2>North Side (Odd)</h2>
+  <p>The hidden history of Oxford&#8217;s favourite street.</p>
+  <h3>North (odd numbers)</h3>
   <nav class="scroll-nav">
     West
     <input id="north-slider"
@@ -158,7 +158,7 @@ function isElementInViewport (el) {
   }
   ?>
   </ul>
-  <h2>South Side (Even)</h2>
+  <h3>South (even numbers)</h3>
   <nav class="scroll-nav">
     East
     <input id="south-slider"
