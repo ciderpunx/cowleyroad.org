@@ -1,10 +1,20 @@
 <html>
 <head>
 <title>My cowley rd</title>
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
 <style>
-.building-list {height:200px; list-style-type:none; white-space:nowrap; display:inline}
-.building-list li {width:20%;display:inline-block}
-.building-list img {width:100%;vertical-align:middle}
+html,body {font-family: Montserrat, sans-serif;text-align:center}
+.building-list {height:350px; list-style-type:none; white-space:nowrap; display:inline; margin-left:0; }
+.building-list li {text-align: center;width:300px;margin-right:10px;display:inline-block;overflow:hidden}
+.building-list img {height:350px;object-position:center;object-fit:contain}
+.scroll-nav {width:100%; text-align:center; height:1.5em; margin-bottom: 1em}
+#north-slider,#south-slider {width:50%}
+#logo {width:100%;max-width:600px;margin:auto}
+#front-h1{width:100%;background-color:#000}
+#front-article {width:100%; overflow-x:hidden; overflow-y:hidden}
+<!--[if (lte IE 10)|!(IE)]><!-->
+#front-article {overflow-x:scroll}
+<![endif]-->
 </style>
 <script>
 
@@ -32,7 +42,6 @@ function lazyLoadImages() {
     window.removeEventListener("scroll", lazyLoadImages);
   }
 }
-
 // Source: http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
 function isElementInViewport (el) {
     var rect = el.getBoundingClientRect();
@@ -44,62 +53,265 @@ function isElementInViewport (el) {
         rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
     );
 }
-
-function goRight (el) {
-  ml = el.style.marginLeft;
-  x="-250";
-  if(ml!="") {
-    x = parseInt(ml);
-  }
-  x2 = x-250;
-  if (x2 < -2000) {
-    x2 = -2000;
-  }
-  console.log("New X is: " + x2 + " (old was " + x + ")");
-  el.style.marginLeft = x2 + "px";
-  lazyLoadImages();
-}
-function goLeft (el) {
-  ml = el.style.marginLeft;
-  x="0";
-  if(ml!="") {
-    x = parseInt(ml);
-  }
-  x2 = x+250;
-  if(x2>0) {
-    x2=0;
-  }
-  console.log("New X is: " + x2 + " (old was " + x + ")");
-  el.style.marginLeft = x2 + "px";
-  lazyLoadImages();
-}
 </script>
 
 </head>
 <body id="main-wrapper">
-<h2>North Side (Odd)</h2>
-<p style="text-align:center">
-<button class="nav" onClick="goLeft(document.getElementById('north-side'));" >&laquo; West</button>
-<button class="nav" onClick="goRight(document.getElementById('north-side'));" >East &raquo;</button>
-</p>
-<ul id="north-side" class="building-list">
-	<li><a href="/wiki/index.php?title=51a"><img data-src="./images/51a-2017-01-06.JPG" alt="51a Cowley Road, Oxford" /></a></li>
-	<li><a href="/wiki/index.php?title=53"><img data-src="./images/53-2017-01-01.jpg" alt="53 Cowley Road, Oxford" /></a></li>
-</ul>
-<h2>South Side (Even)</h2>
-<p style="text-align:center">
-<button class="nav" onClick="goLeft(document.getElementById('south-side'));" >&laquo; East</button>
-<button class="nav" onClick="goRight(document.getElementById('south-side'));" >West &raquo;</button>
-</p>
-<ul id="south-side" class="building-list">
-	<li><a href="/wiki/index.php?title=76"><img data-src="./images/76-2016-12.JPG" alt="76 Cowley Road, Oxford"/></a></li>
-	<li><a href="/wiki/index.php?title=66"><img data-src="./images/66-2016-12.png" alt="66 Cowley Road, Oxford"/></a></li>
-	<li><a href="/wiki/index.php?title=46"><img data-src="./images/46-2016-12.JPG" alt="46 Cowley Road, Oxford"/></a></li>
-	<li><a href="/wiki/index.php?title=40"><img data-src="./images/40-2016-12.JPG" alt="40 Cowley Road, Oxford"/></a></li>
-	<li><a href="/wiki/index.php?title=38"><img data-src="./images/38-2016-12.JPG" alt="38 Cowley Road, Oxford"/></a></li>
-	<li><a href="/wiki/index.php?title=36"><img data-src="./images/36-2016-12.JPG" alt="36 Cowley Road, Oxford"/></a></li>
-	<li><a href="/wiki/index.php?title=34"><img data-src="./images/34-2016-12.JPG" alt="34 Cowley Road, Oxford"/></a></li>
-	<li><a href="/wiki/index.php?title=south_Cape"><img data-src="./images/south_Cape-2016-12.jpg" alt="south_Cape Cowley Road, Oxford"/></a></li>
-</ul>
 
+<header>
+<h1 id="front-h1"><img id="logo" src="images/cowleyRoadOrgLogo600px.png" alt="cowleyroad.org" /></h1>
+</header>
+
+<article id="front-article">
+  <p>The hidden history of Oxford&#8217;s favourite street.</p>
+  <h3>North (odd numbers)</h3>
+  <nav class="scroll-nav">
+    West
+    <input id="north-slider"
+           type="range"
+           value="0"
+           min="0"
+           max="22010"
+           step="310"
+           onChange="document.getElementById('north-side').style.marginLeft = 0 - document.getElementById('north-slider').value;lazyLoadImages();" />
+    East
+  </nav>
+  <ul id="north-side" class="building-list">
+  	<li><a href="/wiki/1/index.php?title=1"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="1 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/3/index.php?title=3"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="3 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/7/index.php?title=7"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="7 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/13/index.php?title=13"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="13 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/17/index.php?title=17"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="17 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/21/index.php?title=21"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="21 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/23/index.php?title=23"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="23 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/25/index.php?title=25"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="25 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/29/index.php?title=29"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="29 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/31/index.php?title=31"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="31 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/33/index.php?title=33"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="33 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/35/index.php?title=35"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="35 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/37/index.php?title=37"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="37 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/51/index.php?title=51"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="51 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/xxnorth_51a/index.php?title=xxnorth_51a"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="xxnorth_51a Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=53"><img data-src="wiki/images/53-2017-01-01.jpg" alt="53 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/xxnorth_53a/index.php?title=xxnorth_53a"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="xxnorth_53a Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/55/index.php?title=55"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="55 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/57/index.php?title=57"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="57 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/59/index.php?title=59"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="59 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/65/index.php?title=65"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="65 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/93/index.php?title=93"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="93 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/95/index.php?title=95"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="95 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/99/index.php?title=99"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="99 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/101/index.php?title=101"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="101 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/103/index.php?title=103"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="103 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/105/index.php?title=105"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="105 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/107/index.php?title=107"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="107 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/109/index.php?title=109"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="109 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/xxnorth_EOCC/index.php?title=xxnorth_EOCC"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="xxnorth_EOCC Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/119/index.php?title=119"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="119 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/121/index.php?title=121"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="121 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/125/index.php?title=125"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="125 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/127/index.php?title=127"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="127 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/129/index.php?title=129"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="129 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/131/index.php?title=131"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="131 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/133/index.php?title=133"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="133 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/137/index.php?title=137"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="137 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/141147/index.php?title=141147"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="141147 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/151/index.php?title=151"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="151 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/xxnorth_151a/index.php?title=xxnorth_151a"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="xxnorth_151a Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/159/index.php?title=159"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="159 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/169/index.php?title=169"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="169 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/171/index.php?title=171"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="171 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/173/index.php?title=173"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="173 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/175/index.php?title=175"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="175 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/179/index.php?title=179"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="179 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/181/index.php?title=181"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="181 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/183/index.php?title=183"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="183 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/185/index.php?title=185"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="185 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/187/index.php?title=187"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="187 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/189/index.php?title=189"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="189 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/191/index.php?title=191"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="191 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/193/index.php?title=193"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="193 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/205/index.php?title=205"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="205 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/207/index.php?title=207"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="207 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/209/index.php?title=209"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="209 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/211/index.php?title=211"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="211 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/213/index.php?title=213"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="213 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/215/index.php?title=215"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="215 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/217/index.php?title=217"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="217 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/221/index.php?title=221"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="221 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/235/index.php?title=235"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="235 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/237/index.php?title=237"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="237 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/249/index.php?title=249"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="249 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/251/index.php?title=251"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="251 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/255/index.php?title=255"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="255 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/263/index.php?title=263"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="263 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/265/index.php?title=265"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="265 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/267/index.php?title=267"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="267 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/xxnorth_bartlemas-Chapel/index.php?title=xxnorth_bartlemas-Chapel"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="xxnorth_bartlemas-Chapel Cowley Road, Oxford" /></a></li>
+  </ul>
+  <h3>South (even numbers)</h3>
+  <nav class="scroll-nav">
+    East
+    <input id="south-slider"
+           type="range"
+           value="0"
+           min="0"
+           max="46500"
+           step="310" 
+           onChange="document.getElementById('south-side').style.marginLeft = 0 - document.getElementById('south-slider').value;lazyLoadImages();" />
+    West
+  </nav>
+  <ul id="south-side" class="building-list">
+  	<li><a href="/wiki/index.php?title=300"><img data-src="wiki/images/300-2006-12.JPG" alt="300 Cowley Road, Oxford"/></a></li>
+	<li><a href="/wiki/index.php?title=298"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="298 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=296"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="296 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=294"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="294 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=292"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="292 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=290"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="290 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=288"><img data-src="wiki/images/288-2017-02.JPG" alt="288 Cowley Road, Oxford"/></a></li>
+	<li><a href="/wiki/index.php?title=286"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="286 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=284"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="284 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=282"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="282 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=280"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="280 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=278"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="278 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=276"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="276 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=274"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="274 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=272"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="272 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=270"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="270 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=268"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="268 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=266"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="266 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=264"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="264 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=262"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="262 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=260"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="260 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=258"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="258 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=256"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="256 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=254"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="254 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=252"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="252 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=250"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="250 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=248"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="248 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=246"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="246 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=244"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="244 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=242"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="242 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=240"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="240 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=238"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="238 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=236"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="236 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=234"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="234 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=232"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="232 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=230"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="230 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=228"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="228 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=226"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="226 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=224"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="224 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=222"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="222 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=220"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="220 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=218"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="218 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=216"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="216 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=214"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="214 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=212"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="212 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=210"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="210 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=208"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="208 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=206"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="206 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=204"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="204 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=202"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="202 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=200"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="200 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=198"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="198 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=196"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="196 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=194"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="194 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=192"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="192 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=190"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="190 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=188"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="188 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=186"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="186 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=184"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="184 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=182"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="182 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=180"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="180 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=178"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="178 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=176"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="176 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=174"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="174 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=172"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="172 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=170"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="170 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=168"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="168 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=166"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="166 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=164"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="164 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=162"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="162 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=160"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="160 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=158"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="158 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=156"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="156 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=154"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="154 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=152"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="152 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=150"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="150 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=148"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="148 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=146"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="146 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=144"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="144 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=142"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="142 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=140"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="140 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=138"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="138 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=136"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="136 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=134"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="134 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=132"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="132 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=130"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="130 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=128"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="128 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=126"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="126 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=124"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="124 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=122"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="122 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=120"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="120 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=118"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="118 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=116"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="116 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=114"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="114 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=112"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="112 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=110"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="110 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=108"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="108 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=106"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="106 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=104"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="104 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=102"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="102 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=100"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="100 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=98"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="98 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=96"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="96 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=94"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="94 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=92"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="92 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=90"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="90 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=88"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="88 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=86"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="86 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=84"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="84 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=82"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="82 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=80"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="80 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=78"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="78 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=76"><img data-src="wiki/images/76-2016-12.JPG" alt="76 Cowley Road, Oxford"/></a></li>
+	<li><a href="/wiki/index.php?title=74"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="74 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=72"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="72 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=70"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="70 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=68"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="68 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=66"><img data-src="wiki/images/66-2016-12.png" alt="66 Cowley Road, Oxford"/></a></li>
+	<li><a href="/wiki/index.php?title=64"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="64 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=62"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="62 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=60"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="60 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=58"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="58 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=56"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="56 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=54"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="54 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=52"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="52 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=50"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="50 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=48"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="48 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=46"><img data-src="wiki/images/46-2016-12.JPG" alt="46 Cowley Road, Oxford"/></a></li>
+	<li><a href="/wiki/index.php?title=44"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="44 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=42"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="42 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=40"><img data-src="wiki/images/40-2016-12.JPG" alt="40 Cowley Road, Oxford"/></a></li>
+	<li><a href="/wiki/index.php?title=38"><img data-src="wiki/images/38-2016-12.JPG" alt="38 Cowley Road, Oxford"/></a></li>
+	<li><a href="/wiki/index.php?title=36"><img data-src="wiki/images/36-2016-12.JPG" alt="36 Cowley Road, Oxford"/></a></li>
+	<li><a href="/wiki/index.php?title=34"><img data-src="wiki/images/34-2016-12.JPG" alt="34 Cowley Road, Oxford"/></a></li>
+	<li><a href="/wiki/index.php?title=32"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="32 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=30"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="30 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=28"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="28 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=26"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="26 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=24"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="24 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=22"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="22 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=20"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="20 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=18"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="18 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=16"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="16 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=14"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="14 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=12"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="12 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=10"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="10 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=8"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="8 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=6"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="6 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=4"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="4 Cowley Road, Oxford" /></a></li>
+	<li><a href="/wiki/index.php?title=2"><img data-src="PATH_TO_DEFAULT_IMAGE.JPG" alt="2 Cowley Road, Oxford" /></a></li>
+  </ul>
+</article>
 </body>
