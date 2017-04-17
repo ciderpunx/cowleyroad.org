@@ -80,7 +80,8 @@ html,body {font-family: Montserrat, sans-serif;text-align:center}
 .building-list img {height:350px;object-position:center;object-fit:contain}
 .scroll-nav {width:100%; text-align:center; height:1.5em; margin-bottom: 1em}
 #north-slider,#south-slider {width:50%}
-#front-h1 {text-align:center}
+#logo {width:100%;max-width:600px;margin:auto}
+#front-h1{width:100%;background-color:#000}
 #front-article {width:100%; overflow-x:hidden; overflow-y:hidden}
 <!--[if (lte IE 10)|!(IE)]><!-->
 #front-article {overflow-x:scroll}
@@ -129,7 +130,7 @@ function isElementInViewport (el) {
 <body id="main-wrapper">
 
 <header>
-<h1 id="front-h1">cowleyroad.org</h1>
+<h1 id="front-h1"><img id="logo" src="images/cowleyRoadOrgLogo600px.png" alt="cowleyroad.org" /></h1>
 </header>
 
 <article id="front-article">
