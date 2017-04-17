@@ -170,12 +170,13 @@ function isElementInViewport (el) {
   <ul id="north-side" class="building-list">
   <?php
   foreach($odd_addresses as $a){
+    $a_humanized = preg_replace("/^xxnorth_/","",$a);
     if(isset($addr_hash['odds'][$a])) {
-      print "\t<li><a href=\"/wiki/index.php?title=$a\"><img data-src=\"".$addr_hash['odds'][$a]."\" alt=\"".$a." Cowley Road, Oxford\" /></a></li>\n";
+      print "\t<li><a href=\"/wiki/index.php?title=$a_humanized\"><img data-src=\"".$addr_hash['odds'][$a]."\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></li>\n";
     }
     else {
-      $a_escaped = preg_replace("/^xxnorth_/","",(preg_replace("/\s+/","+",$a)));
-      print "\t<li><a href=\"/wiki/$a/index.php?title=$a\"><img data-src=\"http://placehold.it/350x350?text=$a_escaped\" alt=\"".$a." Cowley Road, Oxford\" /></a></li>\n";
+      $a_escaped = preg_replace("/\s+/","+",$a_humanized);
+      print "\t<li><a href=\"/wiki/index.php?title=$a_humanized\"><img data-src=\"http://placehold.it/350x350?text=$a_escaped\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></li>\n";
     }
   }
   ?>
@@ -195,12 +196,13 @@ function isElementInViewport (el) {
   <ul id="south-side" class="building-list">
   <?php
   foreach($even_addresses as $a){
+    $a_humanized = preg_replace("/^xxsouth_/","",$a);
     if(isset($addr_hash['evens'][$a])) {
-      print "\t<li><a href=\"/wiki/index.php?title=$a\"><img data-src=\"".$addr_hash['evens'][$a]."\" alt=\"".$a." Cowley Road, Oxford\"/></a></li>\n";
+      print "\t<li><a href=\"/wiki/index.php?title=$a_humanized\"><img data-src=\"".$addr_hash['evens'][$a]."\" alt=\"".$a_humanized." Cowley Road, Oxford\"/></a></li>\n";
     }
     else {
-      $a_escaped = preg_replace("/^xxsouth_/","",preg_replace("/\s+/","+",$a));
-      print "\t<li><a href=\"/wiki/index.php?title=$a\"><img data-src=\"http://placehold.it/350x350?text=$a_escaped\" alt=\"".$a." Cowley Road, Oxford\" /></a></li>\n";
+      $a_escaped = preg_replace("/\s+/","+",$a_humanized);
+      print "\t<li><a href=\"/wiki/index.php?title=$a_humanized\"><img data-src=\"http://placehold.it/350x350?text=$a_escaped\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></li>\n";
     }
   }
   ?>
