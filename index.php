@@ -74,14 +74,16 @@ function getAllImageFilenames() {
 <title>My cowley rd</title>
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
 <style>
-html,body {font-family: Montserrat, sans-serif;text-align:center}
+html,body {font-family: Montserrat, sans-serif;text-align:center;margin:0}
 .building-list {height:350px; list-style-type:none; white-space:nowrap; display:inline; margin-left:0; }
 .building-list li {text-align: center;width:300px;margin-right:10px;display:inline-block;overflow:hidden}
 .building-list img {height:350px;object-position:center;object-fit:contain}
 .scroll-nav {width:100%; text-align:center; height:1.5em; margin-bottom: 1em}
 #north-slider,#south-slider {width:50%}
 #logo {width:100%;max-width:600px;margin:auto}
-#front-h1{width:100%;background-color:#000}
+#front-logobar{width:100%;background-color:#000;color:#eee}
+#front-logobar h1 {margin:0}
+#front-logobar p {padding:0 0 1em 0;margin-top:-2em}
 #front-article {width:100%; overflow-x:hidden; overflow-y:hidden}
 <!--[if (lte IE 10)|!(IE)]><!-->
 #front-article {overflow-x:scroll}
@@ -129,12 +131,15 @@ function isElementInViewport (el) {
 </head>
 <body id="main-wrapper">
 
-<header>
-<h1 id="front-h1"><img id="logo" src="images/cowleyRoadOrgLogo600px.png" alt="cowleyroad.org" /></h1>
+<header id="front-logobar">
+  <h1>
+    <img id="logo" src="images/cowleyRoadOrgLogo600px.png" alt="cowleyroad.org" />
+  </h1>
+  <p>The hidden history of Oxford&#8217;s favourite street</p>
 </header>
 
 <article id="front-article">
-  <p>The hidden history of Oxford&#8217;s favourite street.</p>
+  <p>Select any building to start exploring, or read <a href="/wiki/index.php/?title=About">about the project</a>.<br />&nbsp;</p>
   <h3>North (odd numbers)</h3>
   <nav class="scroll-nav">
     West
