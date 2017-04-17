@@ -41,21 +41,25 @@ function getLatestImages ($filenames) {
   foreach ($filenames as &$f) {
     $pathparts = pathinfo($f);
 
-    $bits = explode('-',$pathparts['filename']);
-    if(count($bits)==1) { # we just got the address with nothing after (check with nor)
-      $f=FALSE;
-    }
-    else if (count($bits)==2){
-      $f = $bits[0] . "-" . $bits[1] . "-00-00." . $pathparts['extension'];
+    $bits = explode('-', $pathparts['filename']);
+
+    // TODO: We only check the numericality of the ymd fields, not if they
+    // are sane numbers (1-31, 1-12 etc.)
+    $f = FALSE;
+    if (count($bits)==2){
+      if(is_numeric($bits[1])) {
+        $f = $bits[0] . "-" . $bits[1] . "-00-00." . $pathparts['extension'];
+      }
     }
     else if (count($bits)==3){
-      $f = $bits[0] . "-" . $bits[1] . "-" . $bits[2] . "-00." . $pathparts['extension'];
+      if(is_numeric($bits[1]) && is_numeric($bits[2])) {
+        $f = $bits[0] . "-" . $bits[1] . "-" . $bits[2] . "-00." . $pathparts['extension'];
+      }
     }
-    else if (count($bits)==4){
-      continue;
-    }
-    else {
-      $f=FALSE;
+    else if (count($bits)>=4){
+      if(is_numeric($bits[1]) && is_numeric($bits[2]) && is_numeric($bits[3])) {
+        continue;
+      }
     }
   }
 
@@ -63,22 +67,23 @@ function getLatestImages ($filenames) {
 
   $hash = array();
   foreach(array_filter($filenames) as &$f) {
-    $f=str_replace("-00","",$f);
-    $bits=explode("-",$f);
-    $address=$bits[0];
-    $north_addr=str_replace("north","1",strtolower($address)); // so addresses tagged xxnorth appear on "odd" side of road
-    $south_north_addr=str_replace("south","2",$north_addr);    // so addresses tagged xxsouth appear on "even" side of road
-    $numaddress=preg_replace("[^\n]","",$south_north_addr); // filter only numeric part of address to work out if it is even or odd
-    if($numaddress%2==0) {
-      $hash['evens'][$address]="$dir/$f";
+    $f = str_replace("-00","",$f);
+    $bits = explode("-",$f);
+    $address = $bits[0];
+    $north_addr = str_replace("north","1",strtolower($address)); // so addresses tagged xxnorth appear on "odd" side of road
+    $south_north_addr = str_replace("south","2",$north_addr);    // so addresses tagged xxsouth appear on "even" side of road
+    $numaddress = preg_replace("[^\n]","",$south_north_addr);    // filter only numeric part of address to work out if it is even or odd
+    if($numaddress%2 == 0) {
+      $hash['evens'][$address] = "$dir/$f";
     }
     else {
-      $hash['odds'][$address]="$dir/$f";
+      $hash['odds'][$address] = "$dir/$f";
     }
   }
 
   return($hash);
 }
+
 function getAllImageFilenames() {
   global $dir;
   return scandir($dir);
