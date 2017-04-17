@@ -21,7 +21,7 @@ $even_addresses = [ "300","288","286","284","282","280","278","276","274"
 
 // This a list of the odd/North addresses in the order that they will appear on screen
 // $odd_addresses = range (1,199,2);
-$odd_addresses = [  "1","3","7","13","17","21","23","25","29","31","33"
+$odd_addresses = [  "1","3","7","13","17","21","23","25","29","xxnorth_29a","31","33"
                  , "35","37","51","xxnorth_51a","53","xxnorth_53a","55"
                  , "57","59","65","93","95","99","101","103","105","107"
                  , "109","xxnorth_EOCC","119","121","125","127","129"
