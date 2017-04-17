@@ -46,20 +46,16 @@ function getLatestImages ($filenames) {
     // TODO: We only check the numericality of the ymd fields, not if they
     // are sane numbers (1-31, 1-12 etc.)
     $f = FALSE;
-    if (count($bits)==2){
-      if(is_numeric($bits[1])) {
-        $f = $bits[0] . "-" . $bits[1] . "-00-00." . $pathparts['extension'];
-      }
+    if (count($bits)==2 && is_numeric($bits[1])){
+      $f = $bits[0] . "-" . $bits[1] . "-00-00." . $pathparts['extension'];
     }
-    else if (count($bits)==3){
-      if(is_numeric($bits[1]) && is_numeric($bits[2])) {
-        $f = $bits[0] . "-" . $bits[1] . "-" . $bits[2] . "-00." . $pathparts['extension'];
-      }
+    else if (count($bits)==3 && is_numeric($bits[1]) && is_numeric($bits[2])){
+      $f = $bits[0] . "-" . $bits[1] . "-" . $bits[2] . "-00." . $pathparts['extension'];
     }
-    else if (count($bits)>=4){
-      if(is_numeric($bits[1]) && is_numeric($bits[2]) && is_numeric($bits[3])) {
+    else if (count($bits)>=4 && is_numeric($bits[1]) && is_numeric($bits[2]) 
+             && is_numeric($bits[3])){
+        $f = $pathparts['filename'] . '.' . $pathparts['extension'];
         continue;
-      }
     }
   }
 
