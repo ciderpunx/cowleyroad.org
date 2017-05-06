@@ -156,6 +156,20 @@ function isElementInViewport (el) {
 
 <article id="front-article">
   <p>Select any building to start exploring, or read <a href="/wiki/index.php/?title=About">about the project</a>.<br />&nbsp;</p>
+  <ul id="north-side" class="building-list">
+  <?php
+  foreach($odd_addresses as $a){
+    $a_humanized = preg_replace("/^xxnorth_/","",$a);
+    if(isset($addr_hash['odds'][$a])) {
+      print "\t<li><a href=\"/wiki/index.php?title=$a_humanized\"><img data-src=\"".$addr_hash['odds'][$a]."\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></li>\n";
+    }
+    else {
+      $a_escaped = preg_replace("/\s+/","+",$a_humanized);
+      print "\t<li><a href=\"/wiki/index.php?title=$a_humanized\"><img data-src=\"http://placehold.it/350x350?text=$a_escaped\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></li>\n";
+    }
+  }
+  ?>
+  </ul>
   <h3>North (odd numbers)</h3>
   <nav class="scroll-nav">
     West
@@ -168,12 +182,12 @@ function isElementInViewport (el) {
            onChange="document.getElementById('north-side').style.marginLeft = 0 - document.getElementById('north-slider').value;lazyLoadImages();" />
     East
   </nav>
-  <ul id="north-side" class="building-list">
+  <ul id="south-side" class="building-list">
   <?php
-  foreach($odd_addresses as $a){
-    $a_humanized = preg_replace("/^xxnorth_/","",$a);
-    if(isset($addr_hash['odds'][$a])) {
-      print "\t<li><a href=\"/wiki/index.php?title=$a_humanized\"><img data-src=\"".$addr_hash['odds'][$a]."\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></li>\n";
+  foreach($even_addresses as $a){
+    $a_humanized = preg_replace("/^xxsouth_/","",$a);
+    if(isset($addr_hash['evens'][$a])) {
+      print "\t<li><a href=\"/wiki/index.php?title=$a_humanized\"><img data-src=\"".$addr_hash['evens'][$a]."\" alt=\"".$a_humanized." Cowley Road, Oxford\"/></a></li>\n";
     }
     else {
       $a_escaped = preg_replace("/\s+/","+",$a_humanized);
@@ -194,19 +208,5 @@ function isElementInViewport (el) {
            onChange="document.getElementById('south-side').style.marginLeft = 0 - document.getElementById('south-slider').value;lazyLoadImages();" />
     West
   </nav>
-  <ul id="south-side" class="building-list">
-  <?php
-  foreach($even_addresses as $a){
-    $a_humanized = preg_replace("/^xxsouth_/","",$a);
-    if(isset($addr_hash['evens'][$a])) {
-      print "\t<li><a href=\"/wiki/index.php?title=$a_humanized\"><img data-src=\"".$addr_hash['evens'][$a]."\" alt=\"".$a_humanized." Cowley Road, Oxford\"/></a></li>\n";
-    }
-    else {
-      $a_escaped = preg_replace("/\s+/","+",$a_humanized);
-      print "\t<li><a href=\"/wiki/index.php?title=$a_humanized\"><img data-src=\"http://placehold.it/350x350?text=$a_escaped\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></li>\n";
-    }
-  }
-  ?>
-  </ul>
 </article>
 </body>
