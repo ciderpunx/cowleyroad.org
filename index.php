@@ -92,7 +92,7 @@ function getAllImageFilenames() {
 <style>
 html,body {font-family: Montserrat, sans-serif;text-align:center;margin:0}
 .building-list {height:350px; list-style-type:none; white-space:nowrap; display:inline; margin-left:0; }
-.building-list li {text-align: center;width:300px;margin-right:10px;display:inline-block;overflow:hidden}
+.building-list li {text-align: center;width:250px;margin-right:10px;display:inline-block;overflow:hidden}
 .building-list img {height:350px;object-position:center;object-fit:contain}
 .scroll-nav {width:100%; text-align:center; height:1.5em; margin-bottom: 1em}
 #north-slider,#south-slider {width:50%}
@@ -165,7 +165,7 @@ function isElementInViewport (el) {
     }
     else {
       $a_escaped = preg_replace("/\s+/","+",$a_humanized);
-      print "\t<li><a href=\"/wiki/index.php?title=$a_humanized\"><img data-src=\"http://placehold.it/350x350?text=$a_escaped\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></li>\n";
+      print "\t<li><a href=\"/wiki/index.php?title=$a_humanized\"><img data-src=\"http://placehold.it/250x350?text=$a_escaped\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></li>\n";
     }
   }
   ?>
@@ -177,8 +177,8 @@ function isElementInViewport (el) {
            type="range"
            value="0"
            min="0"
-           max="<?php echo count($odd_addresses) * 310 ?>"
-           step="310"
+           max="<?php echo count($odd_addresses) * 260 ?>"
+           step="260"
            onChange="document.getElementById('north-side').style.marginLeft = 0 - document.getElementById('north-slider').value;lazyLoadImages();" />
     East
   </nav>
@@ -191,7 +191,7 @@ function isElementInViewport (el) {
     }
     else {
       $a_escaped = preg_replace("/\s+/","+",$a_humanized);
-      print "\t<li><a href=\"/wiki/index.php?title=$a_humanized\"><img data-src=\"http://placehold.it/350x350?text=$a_escaped\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></li>\n";
+      print "\t<li><a href=\"/wiki/index.php?title=$a_humanized\"><img data-src=\"http://placehold.it/250x350?text=$a_escaped\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></li>\n";
     }
   }
   ?>
@@ -203,8 +203,8 @@ function isElementInViewport (el) {
            type="range"
            value="0"
            min="0"
-           max="<?php echo count($even_addresses) * 310 ?>"
-           step="310" 
+           max="<?php echo count($even_addresses) * 260 ?>"
+           step="260" 
            onChange="document.getElementById('south-side').style.marginLeft = 0 - document.getElementById('south-slider').value;lazyLoadImages();" />
     West
   </nav>
