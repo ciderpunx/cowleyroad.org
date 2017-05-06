@@ -155,7 +155,7 @@ function isElementInViewport (el) {
 </header>
 
 <article id="front-article">
-  <p>Select any building to start exploring, or read <a href="/wiki/index.php/?title=About">about the project</a>.<br />&nbsp;</p>
+  <p>Select any building to start exploring, or read <a href="/wiki/index.php?title=About">about the project</a>.<br />&nbsp;</p>
   <ul id="north-side" class="building-list">
   <?php
   foreach($odd_addresses as $a){
