@@ -241,7 +241,8 @@ var mySwiper = new Swiper ('.swiper-container', {
   keyboardControl: true,
   scrollbar: '.swiper-scrollbar',
   //scrollbarHide: false, // not sure about this
-  onSlideChangeEnd: lazyLoadImages // the builtin lazyloading seems glitchy, use our own implemenatation
+  onSlideChangeStart: lazyLoadImages, // the builtin lazyloading seems glitchy, use our own implemenatation
+  onSliderMove: lazyLoadImages
 });
 </script>
 </body>
