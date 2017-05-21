@@ -237,6 +237,7 @@ var mySwiper = new Swiper ('.swiper-container', {
   pagination: '.swiper-pagination',
   nextButton: '.swiper-button-next',
   prevButton: '.swiper-button-prev',
+  keyboardControl: true,
   scrollbar: '.swiper-scrollbar',
   //scrollbarHide: false, // not sure about this
   onSlideChangeEnd: lazyLoadImages // the builtin lazyloading seems glitchy, use our own implemenatation
