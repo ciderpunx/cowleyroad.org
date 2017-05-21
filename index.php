@@ -97,7 +97,8 @@ html,body {font-family: Montserrat, sans-serif;text-align:center;margin:0}
 #front-logobar p {padding:0 0 3em 0;margin-top:-1em}
 #front-article {width:100%; overflow-x:hidden; overflow-y:hidden}
 .swiper-container {width:95%;height:350px}
-.swiper-slide {width:250px;height:350px;overflow:hidden}
+.swiper-slide {width:250px;height:350px;background-color:#ccc;overflow:hidden}
+.swiper-slide a {line-height:350px;text-decoration:none; color:#999;}
 .swiper-slide img {height:350px;object-position:center;object-fit:contain}
 .swiper-button-next, .swiper-container-rtl .swiper-button-prev {
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23000000'%2F%3E%3C%2Fsvg%3E");
