@@ -2,6 +2,9 @@
 <?php
 $dir = "wiki/images"; // change to dir where images live
 
+// width of images plus a bit of padding
+$img_step = 260;
+
 // This a list of the even/South addresses in the order that they will appear on screen
 // $even_addresses = range(300,2,2);
 $even_addresses = [ "300","288","286","284","282","280","278","276","274"
@@ -18,6 +21,7 @@ $even_addresses = [ "300","288","286","284","282","280","278","276","274"
                   , "xxsouth_1-The-Plain"
                   ]
 ;
+$max_even_addr = count($even_addresses) * $img_step;
 
 // This a list of the odd/North addresses in the order that they will appear on screen
 // $odd_addresses = range (1,199,2);
@@ -32,6 +36,7 @@ $odd_addresses = [  "1","3","7","13","17","21","23","25","xxnorth_29a","33"
                  , "267","xxnorth_bartlemas-Chapel"
                  ]
 ;
+$max_odd_addr = count($odd_addresses) * $img_step;
 
 $addrs = getAllImageFilenames();
 $addr_hash = getLatestImages($addrs);
@@ -87,13 +92,14 @@ function getAllImageFilenames() {
 
 ?>
 <head>
-<title>My cowley rd</title>
+<title>Cowley Road</title>
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css">
 <style>
 html,body {font-family: Montserrat, sans-serif;text-align:center;margin:0}
-.building-list {height:350px; list-style-type:none; white-space:nowrap; display:inline; margin-left:0; }
+.building-list {height:350px; list-style-type:none; white-space:nowrap; display:inline; margin-left:0;width:90%;float:left}
+.clear {clear:both}
 .building-list li {text-align: center;width:250px;margin-right:10px;display:inline-block;overflow:hidden}
-.building-list img {height:350px;object-position:center;object-fit:contain}
 .scroll-nav {width:100%; text-align:center; height:1.5em; margin-bottom: 1em}
 #north-slider,#south-slider {width:50%}
 #logo {width:100%;max-width:600px;margin:auto}
@@ -101,15 +107,23 @@ html,body {font-family: Montserrat, sans-serif;text-align:center;margin:0}
 #front-logobar h1 {margin:0}
 #front-logobar p {padding:0 0 3em 0;margin-top:-1em}
 #front-article {width:100%; overflow-x:hidden; overflow-y:hidden}
+.left-arrow{width:5%;min-width:20px;float:left}
+.right-arrow{width:5%;min-width:20px;float:right}
+.swiper-container {width:95%}
+.swiper-slide {width:250px;height:350px;overflow:hidden}
+.swiper-slide img {height:350px;object-position:center;object-fit:contain}
+.swiper-button-next, .swiper-button-prev {margin-top:-150px}
 <!--[if (lte IE 10)|!(IE)]><!-->
 #front-article {overflow-x:scroll}
 <![endif]-->
 </style>
-<script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.min.js"></script>
 
+<script>
 // Lazy Loading code from: http://developer.telerik.com/featured/lazy-loading-images-on-the-web/
 window.addEventListener("DOMContentLoaded", lazyLoadImages);
 window.addEventListener("load", lazyLoadImages);
+window.addEventListener("load", function() {document.getElementById('north-slider').value=0; document.getElementById('south-slider').value=0;} );
 window.addEventListener("resize", lazyLoadImages);
 window.addEventListener("scroll", lazyLoadImages);
 
@@ -142,6 +156,19 @@ function isElementInViewport (el) {
         rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
     );
 }
+
+function scrollStreet(elt,slider,max_add,dir) {
+  lmargin = parseInt(elt.style.marginLeft);
+  if(dir==='right' && lmargin > ( 0 - max_add) ) {
+    elt.style.marginLeft = lmargin - <?php echo $img_step ?>;
+  }
+  else if(dir==='left' && lmargin <= (0 - <?php echo $img_step ?>)) {
+    elt.style.marginLeft = lmargin + <?php echo $img_step ?>;
+  }
+  slider.value = Math.abs(parseInt(elt.style.marginLeft));
+  lazyLoadImages();
+}
+
 </script>
 
 </head>
@@ -156,20 +183,30 @@ function isElementInViewport (el) {
 
 <article id="front-article">
   <p>Select any building to start exploring, or read <a href="/wiki/index.php?title=About">about the project</a>.<br />&nbsp;</p>
-  <ul id="north-side" class="building-list">
+  <div class="clear"></div>
+  <!--div class="left-arrow"><input type="button" onclick="scrollStreet(document.getElementById('north-side'),document.getElementById('north-slider'),<?php echo $max_odd_addr ?>,'left')" value="&laquo;"></div>
+  <div class="right-arrow"><input type="button" onclick="scrollStreet(document.getElementById('north-side'),document.getElementById('north-slider'),<?php echo $max_odd_addr ?>,'right')" value="&raquo;"></div-->
+  <div class="swiper-container">
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-scrollbar"></div>
+    <div class="swiper-wrapper">
+  <!--ul id="north-side" class="building-list" style="margin-left:0px"-->
   <?php
   foreach($odd_addresses as $a){
     $a_humanized = preg_replace("/^xxnorth_/","",$a);
     if(isset($addr_hash['odds'][$a])) {
-      print "\t<li><a href=\"/wiki/index.php?title=$a_humanized\"><img data-src=\"".$addr_hash['odds'][$a]."\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></li>\n";
+      echo "\t<div class=\"swiper-slide\"><a href=\"/wiki/index.php?title=$a_humanized\"><img class=\"swiper-lazy\" data-src=\"".$addr_hash['odds'][$a]."\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></div>\n";
     }
     else {
       $a_escaped = preg_replace("/\s+/","+",$a_humanized);
-      print "\t<li><a href=\"/wiki/index.php?title=$a_humanized\"><img data-src=\"http://placehold.it/250x350?text=$a_escaped\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></li>\n";
+      echo "\t<div class=\"swiper-slide\"><a href=\"/wiki/index.php?title=$a_humanized\"><img  class=\"swiper-lazy\" data-src=\"http://placehold.it/250x350?text=$a_escaped\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></div>\n";
     }
   }
   ?>
-  </ul>
+    </div>
+  </div>
+  <div class="clear"></div>
   <h3>North (odd numbers)</h3>
   <nav class="scroll-nav">
     West
@@ -177,12 +214,15 @@ function isElementInViewport (el) {
            type="range"
            value="0"
            min="0"
-           max="<?php echo count($odd_addresses) * 260 ?>"
-           step="260"
+           max="<?php echo $max_odd_addr ?>"
+           step="<?php echo $img_step ?>"
            onChange="document.getElementById('north-side').style.marginLeft = 0 - document.getElementById('north-slider').value;lazyLoadImages();" />
     East
   </nav>
-  <ul id="south-side" class="building-list">
+  <div class="clear"></div>
+  <div class="left-arrow"><input type="button" onclick="scrollStreet(document.getElementById('south-side'),document.getElementById('south-slider'),<?php echo $max_even_addr ?>,'left')" value="&laquo;"></div>
+  <div class="right-arrow"><input type="button" onclick="scrollStreet(document.getElementById('south-side'),document.getElementById('south-slider'),<?php echo $max_even_addr ?>,'right')" value="&raquo;"></div>
+  <ul id="south-side" class="building-list" style="margin-left:0px">
   <?php
   foreach($even_addresses as $a){
     $a_humanized = preg_replace("/^xxsouth_/","",$a);
@@ -196,6 +236,7 @@ function isElementInViewport (el) {
   }
   ?>
   </ul>
+  <div class="clear"></div>
   <h3>South (even numbers)</h3>
   <nav class="scroll-nav">
     East
@@ -203,8 +244,8 @@ function isElementInViewport (el) {
            type="range"
            value="0"
            min="0"
-           max="<?php echo count($even_addresses) * 260 ?>"
-           step="260" 
+           max="<?php echo $max_even_addr ?>"
+           step="<?php echo $img_step ?>" 
            onChange="document.getElementById('south-side').style.marginLeft = 0 - document.getElementById('south-slider').value;lazyLoadImages();" />
     West
   </nav>
@@ -225,4 +266,28 @@ function isElementInViewport (el) {
   })();
 </script>
 <!-- End Piwik Code -->
+  <script>        
+  var mySwiper = new Swiper ('.swiper-container', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: false,
+    slidesPerView: 'auto',
+    spaceBetween: 10,
+    grabcursor: true,
+    preloadImages: false,
+    lazyLoading: true,
+    
+    // If we need pagination
+    pagination: '.swiper-pagination',
+    
+    // Navigation arrows
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    
+    // And if we need scrollbar
+    //scrollbar: '.swiper-scrollbar',
+    
+    onSlideChangeEnd: lazyLoadImages
+  })        
+  </script>
 </body>
