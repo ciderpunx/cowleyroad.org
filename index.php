@@ -8,27 +8,27 @@ $even_addresses = [ "300","288","286","284","282","280","278","276","274"
                   , "272","268","266","264","262","258","256","254","252"
                   , "250","248","246","242","240","236","234","232","228"
                   , "226","224","220","218","216","212","190","188","186"
-                  , "xxsouth_184a","184","182","180","178","176","174","172"
+                  , "Xxsouth_184a","184","182","180","178","176","174","172"
                   , "170","168","166","164","162","160","158","156","154","152"
-                  , "150","148","146","142","140","138","136","xxsouth_134b"
-                  , "xxsouth_Tyndale-House","134","132","128","126","124","122"
+                  , "150","148","146","142","140","138","136","Xxsouth_134b"
+                  , "Xxsouth_Tyndale-House","134","132","128","126","124","122"
                   , "120","118","116","110","106","104","102","100","98","96"
                   , "94","92","90","88","86","84","82","80","78","76","74","72"
                   , "68","66","64","62","58","54","48","46","40","38","36","34"
-                  , "xxsouth_1-The-Plain"
+                  , "Xxsouth_1-The-Plain"
                   ]
 ;
 // This a list of the odd/North addresses in the order that they will appear on screen
 // $odd_addresses = range (1,199,2);
-$odd_addresses = [  "1","3","7","13","17","21","23","25","xxnorth_29a","33"
-                 , "35","37","51","xxnorth_51a","53","xxnorth_53a","55"
+$odd_addresses = [  "1","3","7","13","17","21","23","25","Xxnorth29a","33"
+                 , "35","37","51","Xxnorth_51a","53","Xxnorth_53a","55"
                  , "57","59","65","93","95","99","101","103","105","107"
-                 , "109","xxnorth_EOCC","119","121","125","127","129"
-                 , "131","133","137","141","147","151","xxnorth_151a","159"
+                 , "109","Xxnorth_EOCC","119","121","125","127","129"
+                 , "131","133","137","141","147","151","Xxnorth_151a","159"
                  , "169","171","173","175","179","181","183","185","187"
                  , "189","191","193","205","207","209","211","213","215"
                  , "217","221","235","237","249","251","255","263","265"
-                 , "267","xxnorth_bartlemas-Chapel"
+                 , "267","Xxnorth_bartlemas-Chapel"
                  ]
 ;
 $addrs = getAllImageFilenames();
@@ -64,17 +64,17 @@ function getLatestImages ($filenames) {
     $f = str_replace("-00","",$f);
     $bits = explode("-",$f);
     $address = $bits[0];
-    $north_addr = str_replace("north","1",strtolower($address)); // so addresses tagged xxnorth appear on "odd" side of road
-    $south_north_addr = str_replace("south","2",$north_addr);    // so addresses tagged xxsouth appear on "even" side of road
-    $numaddress = preg_replace("[^\n]","",$south_north_addr);    // filter only numeric part of address to work out if it is even or odd
-    if($numaddress%2 == 0) {
+  //  $north_addr = str_replace("north","1",strtolower($address)); // so addresses tagged xxnorth appear on "odd" side of road
+  //  $south_north_addr = str_replace("south","2",$north_addr);    // so addresses tagged xxsouth appear on "even" side of road
+  //  $numaddress = preg_replace("[^\n]","",$south_north_addr);    // filter only numeric part of address to work out if it is even or odd
+    $numaddress = preg_replace("/[^\d]/","",$address);    // filter only numeric part of address to work out if it is even or odd
+    if($numaddress%2 == 0 || preg_match('/^Xxsouth/',$address)) {
       $hash['evens'][$address] = "$dir/$f";
     }
     else {
       $hash['odds'][$address] = "$dir/$f";
     }
   }
-
   return($hash);
 }
 
@@ -174,7 +174,7 @@ function isElementInViewport (el) {
     <div class="swiper-wrapper">
   <?php
   foreach($odd_addresses as $a){
-    $a_humanized = preg_replace("/^xxnorth_/","",$a);
+    $a_humanized = preg_replace("/^xxnorth_?/i","",$a);
     if(isset($addr_hash['odds'][$a])) {
       echo "\t<div class=\"swiper-slide\"><a href=\"/wiki/index.php?title=$a_humanized\"><img class=\"swiper-lazy\" data-src=\"".$addr_hash['odds'][$a]."\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></div>\n";
     }
@@ -196,7 +196,7 @@ function isElementInViewport (el) {
     <div class="swiper-wrapper">
   <?php
   foreach($even_addresses as $a){
-    $a_humanized = preg_replace("/^xxsouth_/","",$a);
+    $a_humanized = preg_replace("/^xxsouth_?/i","",$a);
     if(isset($addr_hash['evens'][$a])) {
       echo "\t<div class=\"swiper-slide\"><a href=\"/wiki/index.php?title=$a_humanized\"><img class=\"swiper-lazy\" data-src=\"".$addr_hash['evens'][$a]."\" alt=\"".$a_humanized." Cowley Road, Oxford\"/></a></div>\n";
     }
