@@ -24,7 +24,7 @@ $odd_addresses = [  "1","3","7","13","17","21","23","25","Xxnorth29a","33"
                  , "35","37","47","Xxnorth_51a","53","Xxnorth_53a","55"
                  , "57","59","65","93","Xxnorth_UPP","95","99","101","103","105","107"
                  , "109","Xxnorth_EOCC","119","121","125","127","129"
-                 , "131","133","137","141","147","151","Xxnorth_151a","159"
+                 , "131","133","137","141","147","151","Xxnorth_151A","159"
                  , "169","171","173","175","179","181","183","185","187"
                  , "189","193","205","Xxnorth_Manzil-Way","207","209","211","213"
                  , "217","221","235","237","247","251","255","263","265"
@@ -68,7 +68,7 @@ function getLatestImages ($filenames) {
   //  $south_north_addr = str_replace("south","2",$north_addr);    // so addresses tagged xxsouth appear on "even" side of road
   //  $numaddress = preg_replace("[^\n]","",$south_north_addr);    // filter only numeric part of address to work out if it is even or odd
     $numaddress = preg_replace("/[^\d]/","",$address);    // filter only numeric part of address to work out if it is even or odd
-    if($numaddress%2 == 0 || preg_match('/^Xxsouth/',$address)) {
+    if($numaddress%2 == 0 && !preg_match('/^Xxnorth/',$address)) {
       $hash['evens'][$address] = "$dir/$f";
     }
     else {
