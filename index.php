@@ -167,7 +167,7 @@ function isElementInViewport (el) {
 </header>
 
 <article id="front-article">
-  <p>Select any building to start exploring, or read <a href="/wiki/index.php?title=About">about the project</a>.<br />&nbsp;</p>
+  <p>Select any building to start exploring, or read <a href="/wiki/index.php?title=Mainr_Page">about the project</a>.<br />&nbsp;</p>
   <div class="swiper-container">
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
