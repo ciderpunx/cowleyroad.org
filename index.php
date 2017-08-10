@@ -118,7 +118,7 @@ html,body {font-family: Montserrat, sans-serif;text-align:center;margin:0}
 </style>
 
 <script>
-// Lazy Loading code from: http://developer.telerik.com/featured/lazy-loading-images-on-the-web/
+// Lazy Loading code from: https://developer.telerik.com/featured/lazy-loading-images-on-the-web/
 window.addEventListener("DOMContentLoaded", lazyLoadImages);
 window.addEventListener("load", lazyLoadImages);
 window.addEventListener("resize", lazyLoadImages);
@@ -132,7 +132,6 @@ function lazyLoadImages() {
     if (isElementInViewport(item)) {
       item.setAttribute("src",item.getAttribute("data-src"));
       item.removeAttribute("data-src");
-      // TODO: change parent bgcolor to white on load
     }
   })
   // if all the images are loaded, stop calling the handler
@@ -143,15 +142,17 @@ function lazyLoadImages() {
     window.removeEventListener("scroll", lazyLoadImages);
   }
 }
-// Source: http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
+// Source: https://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
 function isElementInViewport (el) {
     var rect = el.getBoundingClientRect();
 
+    //console.log(rect.right, rect.left);
+    // Note that for some reason IE and epiphany incorrectly add ~1500px to rect.right. So look at rect.left. Which is right. near enough.
     return (
         rect.top >= 0 &&
         rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= 550 + (window.innerWidth || document.documentElement.clientWidth) 
+        rect.bottom <= 150 + (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.left <= 550 + (window.innerWidth || document.documentElement.clientWidth) 
     ); // note that adding a bit to the RHS pre-buffers 2 images, so they display quicker when scrolling right TODO check perf implications
 }
 </script>
@@ -180,7 +181,7 @@ function isElementInViewport (el) {
     }
     else {
       $a_escaped = preg_replace("/\s+/","+",$a_humanized);
-      echo "\t<div class=\"swiper-slide\"><a href=\"/wiki/index.php?title=$a_humanized\"><img  class=\"swiper-lazy\" data-src=\"http://placehold.it/250x350?text=$a_escaped\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></div>\n";
+      echo "\t<div class=\"swiper-slide\"><a href=\"/wiki/index.php?title=$a_humanized\"><img  class=\"swiper-lazy\" data-src=\"https://placehold.it/250x350?text=$a_escaped\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></div>\n";
     }
   }
   ?>
@@ -202,7 +203,7 @@ function isElementInViewport (el) {
     }
     else {
       $a_escaped = preg_replace("/\s+/","+",$a_humanized);
-      echo "\t<div class=\"swiper-slide\"><a href=\"/wiki/index.php?title=$a_humanized\"><img class=\"swiper-lazy\" data-src=\"http://placehold.it/250x350?text=$a_escaped\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></div>\n";
+      echo "\t<div class=\"swiper-slide\"><a href=\"/wiki/index.php?title=$a_humanized\"><img class=\"swiper-lazy\" data-src=\"https://placehold.it/250x350?text=$a_escaped\" alt=\"".$a_humanized." Cowley Road, Oxford\" /></a></div>\n";
     }
   }
   ?>
